@@ -1,5 +1,4 @@
 #include <windows.h>
-#include <vector>
 #include <stdio.h>
 
 BOOL WINAPI HackThread(HMODULE hModule)
