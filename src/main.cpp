@@ -29,9 +29,7 @@ BOOL WINAPI HackThread(HMODULE hModule)
 	while (true)
 	{
 		if (GetAsyncKeyState(VK_END) & 1)
-		{
 			break;
-		}
 
 		if (GetAsyncKeyState(VK_NUMPAD1) & 1)
 		{
@@ -102,33 +100,19 @@ BOOL WINAPI HackThread(HMODULE hModule)
 		if (localPlayerPtr)
 		{
 			if (bRifleAmmo)
-			{
 				*(int*)(*localPlayerPtr + 0x140) = 999;
-			}
 			if (bHealth)
-			{
 				*(int*)(*localPlayerPtr + 0xEC) = 999;
-			}
 			if (bGrenade)
-			{
 				*(int*)(*localPlayerPtr + 0x144) = 999;
-			}
 			if (bArmor)
-			{
 				*(int*)(*localPlayerPtr + 0xF0) = 999;
-			}
 			if (bPistolAmmo)
-			{
 				*(int*)(*localPlayerPtr + 0x12C) = 999;
-			}
 			if (bPistolClip)
-			{
 				*(int*)(*localPlayerPtr + 0x108) = 999;
-			}
 			if (bRifleClip)
-			{
 				*(int*)(*localPlayerPtr + 0x11C) = 999;
-			}
 		}
 
 		Sleep(1);
