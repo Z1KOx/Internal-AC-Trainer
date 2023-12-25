@@ -1,12 +1,29 @@
 #include <windows.h>
 #include <stdio.h>
+#include <iostream>
+#include <thread>
 
-BOOL WINAPI HackThread(HMODULE hModule)
+// ReClass.NET
+class Entity
 {
-	AllocConsole();
-	FILE* f;
-	freopen_s(&f, "CONOUT$", "w", stdout);
+public:
+	char pad_0000[236]; //0x0000
+	int32_t health; //0x00EC
+	int32_t armor; //0x00F0
+	char pad_00F4[20]; //0x00F4
+	int32_t pistolReserveAmmo; //0x0108
+	char pad_010C[16]; //0x010C
+	int32_t rifleReserveAmmo; //0x011C
+	char pad_0120[12]; //0x0120
+	int32_t pistolAmmo; //0x012C
+	char pad_0130[16]; //0x0130
+	int32_t rifleAmmo; //0x0140
+	int32_t grenade; //0x0144
+	char pad_0148[760]; //0x0148
+};
 
+void UI()
+{
 	printf("[STATUS] DLL injected in AssaultCube successfully\n\n");
 	printf("___________________________________________________\n\n");
 
@@ -14,15 +31,24 @@ BOOL WINAPI HackThread(HMODULE hModule)
 	printf("Numpad2 = Health\n");
 	printf("Numpad3 = Grenade\n");
 	printf("Numpad4 = Armor\n");
-	printf("Numpad5 = Pistol Ammo\n");
-	printf("Numpad6 = Pistol Clip\n");
-	printf("Numpad7 = Rifle Clip\n");
+	printf("Numpad5 = Pistol ammo\n");
+	printf("Numpad6 = Pistol reserve ammo\n");
+	printf("Numpad7 = Rifle reserve ammo\n");
 	printf("END = Eject\n");
 
 	printf("___________________________________________________\n\n");
 	printf("Toggle section\n\n");
+}
+
+BOOL WINAPI HackThread(HMODULE hModule)
+{
+	AllocConsole();
+	FILE* f;
+	freopen_s(&f, "CONOUT$", "w", stdout);
 
 	uintptr_t moduleBase = (uintptr_t)GetModuleHandle(L"ac_client.exe");
+	if(moduleBase)
+		UI();
 
 	bool bRifleAmmo{ false }, bHealth{ false }, bGrenade{ false }, bArmor{ false }, bPistolAmmo{ false }, bPistolClip{ false }, bRifleClip{ false };
 
@@ -35,87 +61,87 @@ BOOL WINAPI HackThread(HMODULE hModule)
 		{
 			bRifleAmmo = !bRifleAmmo;
 
-			if (!bRifleAmmo)
-				printf("Rifle Ammo toggle off\n");
-			else
+			if (bRifleAmmo)
 				printf("Rifle Ammo toggle on\n");
+			else
+				printf("Rifle Ammo toggle off\n");
 		}
 		if (GetAsyncKeyState(VK_NUMPAD2) & 1)
 		{
 			bHealth = !bHealth;
 
-			if (!bHealth)
-				printf("Health toggle off\n");
-			else
+			if (bHealth)
 				printf("Health toggle on\n");
+			else
+				printf("Health toggle off\n");
 		}
 		if (GetAsyncKeyState(VK_NUMPAD3) & 1)
 		{
 			bGrenade = !bGrenade;
 
-			if (!bGrenade)
-				printf("Grenade toggle off\n");
-			else
+			if (bGrenade)
 				printf("Grenade toggle on\n");
+			else
+				printf("Grenade toggle off\n");
 		}
 		if (GetAsyncKeyState(VK_NUMPAD4) & 1)
 		{
 			bArmor = !bArmor;
 
-			if (!bArmor)
-				printf("Armor toggle off\n");
-			else
+			if (bArmor)
 				printf("Armor toggle on\n");
+			else
+				printf("Armor toggle off\n");
 		}
 		if (GetAsyncKeyState(VK_NUMPAD5) & 1)
 		{
 			bPistolAmmo = !bPistolAmmo;
 
-			if (!bPistolAmmo)
-				printf("Pistol Ammo toggle off\n");
-			else
+			if (bPistolAmmo)
 				printf("Pistol Ammo toggle on\n");
+			else
+				printf("Pistol Ammo toggle off\n");
 		}
 		if (GetAsyncKeyState(VK_NUMPAD6) & 1)
 		{
 			bPistolClip = !bPistolClip;
 
-			if (!bPistolClip)
-				printf("Pistol Clip toggle off\n");
-			else
+			if (bPistolClip)
 				printf("Pistol Clip toggle on\n");
+			else
+				printf("Pistol Clip toggle off\n");
 		}
 		if (GetAsyncKeyState(VK_NUMPAD7) & 1)
 		{
 			bRifleClip = !bRifleClip;
 
-			if (!bRifleClip)
-				printf("Rifle Clip toggle off\n");
-			else
+			if (bRifleClip)
 				printf("Rifle Clip toggle on\n");
+			else
+				printf("Rifle Clip toggle off\n");
 		}
 
-		uintptr_t* localPlayerPtr = (uintptr_t*)(moduleBase + 0x0017E0A8);
+		Entity* localPlayer = *(Entity**)(moduleBase + 0x0017E0A8);
 
-		if (localPlayerPtr)
+		if (localPlayer)
 		{
 			if (bRifleAmmo)
-				*(int*)(*localPlayerPtr + 0x140) = 999;
+				localPlayer->rifleAmmo = 999;
 			if (bHealth)
-				*(int*)(*localPlayerPtr + 0xEC) = 999;
+				localPlayer->health = 999;
 			if (bGrenade)
-				*(int*)(*localPlayerPtr + 0x144) = 999;
+				localPlayer->grenade = 999;
 			if (bArmor)
-				*(int*)(*localPlayerPtr + 0xF0) = 999;
+				localPlayer->armor = 999;
 			if (bPistolAmmo)
-				*(int*)(*localPlayerPtr + 0x12C) = 999;
+				localPlayer->pistolAmmo = 999;
 			if (bPistolClip)
-				*(int*)(*localPlayerPtr + 0x108) = 999;
+				localPlayer->pistolReserveAmmo = 999;
 			if (bRifleClip)
-				*(int*)(*localPlayerPtr + 0x11C) = 999;
+				localPlayer->rifleReserveAmmo = 999;
 		}
 
-		Sleep(1);
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
 
 	fclose(f);
@@ -125,13 +151,29 @@ BOOL WINAPI HackThread(HMODULE hModule)
 }
 
 
-BOOL APIENTRY DllMain(HINSTANCE hModule, DWORD fdwReason, LPVOID lpvReserved)
+BOOL APIENTRY DllMain(
+	HINSTANCE hModule,
+	DWORD ul_reason_for_call,
+	LPVOID lpvReserved
+)
 {
-	switch (fdwReason)
+	HANDLE hThread = nullptr;
+
+	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
 	{
-		CloseHandle(CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)HackThread, hModule, 0, nullptr));
+		hThread = CreateThread(
+			nullptr,
+			NULL,
+			(LPTHREAD_START_ROUTINE)HackThread,
+			hModule,
+			NULL,
+			nullptr
+		);
+		if (hThread) {
+			CloseHandle(hThread);
+		}
 	}
 	case DLL_THREAD_ATTACH:
 	case DLL_THREAD_DETACH:
