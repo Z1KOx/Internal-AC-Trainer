@@ -29,7 +29,6 @@ namespace config
 		constexpr int PistolClip = 5678;
 		constexpr int PistolReserve = 4096;
 		constexpr int Grenade = 512;
-		constexpr int Gravity = 10;
 		
 		constexpr int WeaponSound = 2;
 		constexpr int WeaponDamage = 100;
