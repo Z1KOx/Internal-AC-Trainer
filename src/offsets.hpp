@@ -1,7 +1,7 @@
 #ifndef OFFSETS_H
 #define OFFSETS_H
 
-#include "pch.h"
+#include "pch.hpp"
 
 namespace offsets
 {

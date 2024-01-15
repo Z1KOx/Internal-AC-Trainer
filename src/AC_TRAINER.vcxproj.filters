@@ -23,19 +23,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="offsets.h">
+    <ClInclude Include="offsets.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="config.h">
+    <ClInclude Include="config.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Hack.cpp">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Mem.h">
+    <ClInclude Include="Mem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h">
+    <ClInclude Include="pch.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

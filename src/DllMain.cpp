@@ -1,5 +1,5 @@
 #include "Hack.cpp"
-#include "offsets.h"
+#include "offsets.hpp"
 
 DWORD Uninitilize(HINSTANCE hModule, FILE* f)
 {

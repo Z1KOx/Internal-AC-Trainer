@@ -135,11 +135,11 @@
     <ClCompile Include="Mem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="config.h" />
+    <ClInclude Include="config.hpp" />
     <ClInclude Include="Hack.cpp" />
-    <ClInclude Include="Mem.h" />
-    <ClInclude Include="offsets.h" />
-    <ClInclude Include="pch.h" />
+    <ClInclude Include="Mem.hpp" />
+    <ClInclude Include="offsets.hpp" />
+    <ClInclude Include="pch.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
