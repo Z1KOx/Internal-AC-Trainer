@@ -149,7 +149,10 @@ void MainHack()
 			if (config::Enable::WeaponSound)
 				*(int*)mem::FindDMAAddy(moduleBase + 0x18AC00, { offsets::WeaponSound }) = config::Value::WeaponSound;
 			if (config::Enable::WeaponRapidfire)
+			{
 				*(int*)mem::FindDMAAddy(moduleBase + 0x18AC00, { offsets::WeaponRapidfire }) = 0;
+				*(int*)mem::FindDMAAddy(moduleBase + 0x18AC00, { offsets::WeaponIsAuto }) = 1;
+			}
 			if (config::Enable::WeaponDamage)
 				*(int*)mem::FindDMAAddy(moduleBase + 0x18AC00, { offsets::WeaponDamage }) = config::Value::WeaponDamage;
 			if (config::Enable::WeaponKickBack)

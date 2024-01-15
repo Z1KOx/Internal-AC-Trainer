@@ -28,11 +28,11 @@ namespace config
 
 		constexpr bool Grenade = true;
 
-		constexpr bool WeaponSound = false;
-		constexpr bool WeaponDamage = false;
-		constexpr bool WeaponRapidfire = false;
-		constexpr bool WeaponKickBack = false;
-		constexpr bool WeaponRecoil = false;
+		constexpr bool WeaponSound = true;
+		constexpr bool WeaponDamage = true;
+		constexpr bool WeaponRapidfire = true;
+		constexpr bool WeaponKickBack = true;
+		constexpr bool WeaponRecoil = true;
 	}
 
 	namespace Value
