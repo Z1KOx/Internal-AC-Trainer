@@ -30,9 +30,11 @@ namespace config
 
 		constexpr bool WeaponSound = true;
 		constexpr bool WeaponDamage = true;
-		constexpr bool WeaponRapidfire = true;
-		constexpr bool WeaponKickBack = true;
-		constexpr bool WeaponRecoil = true;
+		constexpr bool WeaponRapidfire = false; // If you switch guns than they will disappear
+		constexpr bool WeaponNoKickBack = true;
+		constexpr bool WeaponNoRecoil = true;
+
+		constexpr bool InfJump = true;
 	}
 
 	namespace Value

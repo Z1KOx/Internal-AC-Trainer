@@ -99,8 +99,10 @@ void MainHack()
 				std::cout << "Weapon Damage             [ " << std::boolalpha << config::Enable::WeaponDamage << " ]\n";
 
 			std::cout << "Weapon Rapidfire          [ " << std::boolalpha << config::Enable::WeaponRapidfire << " ]\n";
-			std::cout << "Weapon KickBack           [ " << std::boolalpha << config::Enable::WeaponKickBack << " ]\n";
-			std::cout << "Weapon Recoil             [ " << std::boolalpha << config::Enable::WeaponRecoil << " ]\n";
+			std::cout << "Weapon No KickBack        [ " << std::boolalpha << config::Enable::WeaponNoKickBack << " ]\n";
+			std::cout << "Weapon No Recoil          [ " << std::boolalpha << config::Enable::WeaponNoRecoil << " ]\n\n";
+
+			std::cout << "Infinite Jump             [ " << std::boolalpha << config::Enable::InfJump << " ]\n";
 
 			bPrintConfig = false;
 		}
@@ -155,10 +157,14 @@ void MainHack()
 			}
 			if (config::Enable::WeaponDamage)
 				*(int*)mem::FindDMAAddy(moduleBase + 0x18AC00, { offsets::WeaponDamage }) = config::Value::WeaponDamage;
-			if (config::Enable::WeaponKickBack)
+			if (config::Enable::WeaponNoKickBack)
 				*(int*)mem::FindDMAAddy(moduleBase + 0x18AC00, { offsets::WeaponKickBack }) = 0;
-			if (config::Enable::WeaponRecoil)
+			if (config::Enable::WeaponNoRecoil)
 				*(int*)mem::FindDMAAddy(moduleBase + 0x18AC00, { offsets::WeaponRecoil }) = 0;
+
+
+			if (config::Enable::InfJump)
+				*(int*)(*localPlayer + offsets::Infjump) = 1;
 		}
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));

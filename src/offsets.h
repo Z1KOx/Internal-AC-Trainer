@@ -27,10 +27,11 @@ namespace offsets
 	inline constexpr DWORD X_view = 0x34;
 	inline constexpr DWORD Y_view = 0x38;
 
-	// Local-Player positions
+	// Local-Player positions & movement
 	inline constexpr DWORD X_position = 0x28;
 	inline constexpr DWORD Y_position = 0x2C;
 	inline constexpr DWORD Z_position = 0x30;
+	inline constexpr BYTE Infjump = 0x5D;
 
 	// Weapon customization
 	inline const std::vector<unsigned short>WeaponSound{ 0x364, 0xC, 0x42 };
