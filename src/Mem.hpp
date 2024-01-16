@@ -1,5 +1,5 @@
-#ifndef MEM_H
-#define MEM_H
+#ifndef MEM_HPP
+#define MEM_HPP
 
 #include "pch.hpp"
 

@@ -1,5 +1,5 @@
-#ifndef CONFIH_H
-#define CONFIG_H
+#ifndef CONFIH_HPP
+#define CONFIG_HPP
 
 namespace config
 {

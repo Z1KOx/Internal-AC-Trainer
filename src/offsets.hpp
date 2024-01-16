@@ -1,5 +1,5 @@
-#ifndef OFFSETS_H
-#define OFFSETS_H
+#ifndef OFFSETS_HPP
+#define OFFSETS_HPP
 
 #include "pch.hpp"
 
