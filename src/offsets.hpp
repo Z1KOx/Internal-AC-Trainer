@@ -34,13 +34,13 @@ namespace offsets
 	inline constexpr BYTE Infjump = 0x5D;
 
 	// Weapon customization
-	inline const std::vector<unsigned short>WeaponSound{ 0x364, 0xC, 0x42 };
-	inline const std::vector<unsigned short>WeaponRapidfire{ 0x364, 0xC, 0x46 };
-	inline const std::vector<unsigned short>WeaponDamage{ 0x364, 0xC, 0x4A };
-	inline const std::vector<unsigned short>WeaponKickBack{ 0x364, 0xC, 0x54 };
-	inline const std::vector<unsigned short>WeaponClip{ 0x364, 0xC, 0x56 };
-	inline const std::vector<unsigned short>WeaponRecoil{ 0x364 , 0xC, 0x60 };
-	inline const std::vector<unsigned short>WeaponIsAuto{ 0x364, 0xC, 0x66 };
+	inline const std::vector<WORD>WeaponSound{ 0x364, 0xC, 0x42 };
+	inline const std::vector<WORD>WeaponRapidfire{ 0x364, 0xC, 0x46 };
+	inline const std::vector<WORD>WeaponDamage{ 0x364, 0xC, 0x4A };
+	inline const std::vector<WORD>WeaponKickBack{ 0x364, 0xC, 0x54 };
+	inline const std::vector<WORD>WeaponClip{ 0x364, 0xC, 0x56 };
+	inline const std::vector<WORD>WeaponRecoil{ 0x364 , 0xC, 0x60 };
+	inline const std::vector<WORD>WeaponIsAuto{ 0x364, 0xC, 0x66 };
 
 	// Base addresses
 	inline constexpr ptrdiff_t LocalPlayerObject = 0x18AC00;

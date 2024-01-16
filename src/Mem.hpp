@@ -5,7 +5,7 @@
 
 namespace mem
 {
-	uintptr_t FindDMAAddy(const uintptr_t ptr, const std::vector<unsigned short> offsets);
+	uintptr_t FindDMAAddy(const uintptr_t ptr, const std::vector<WORD> offsets);
 }
 
 #endif
