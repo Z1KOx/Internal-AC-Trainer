@@ -103,7 +103,6 @@ void printConfig()
 void MainHack()
 {
 	const uintptr_t moduleBase = (uintptr_t)GetModuleHandleA("ac_client.exe");
-	bool bPrintConfig{ true };
 
 	while (true)
 	{
