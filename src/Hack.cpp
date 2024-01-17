@@ -8,7 +8,7 @@ void printConfig()
 
 	if (bPrintConfig)
 	{
-		std::cout << "Keybind END will eject this trainer\n\n";
+		std::cout << "Keybind END will eject this trainer\n\n\n";
 		if (config::Enable::Health)
 			std::cout << "Health                    [ " << std::boolalpha << config::Enable::Health << ", " << config::Value::Health << " ]\n";
 		else
