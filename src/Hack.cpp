@@ -4,9 +4,9 @@
 
 void printConfig()
 {
-	static bool bPrintConfig{ true };
+	static bool s_bPrintConfig{ true };
 
-	if (bPrintConfig)
+	if (s_bPrintConfig)
 	{
 		std::cout << "Keybind END will eject this trainer\n\n\n";
 		if (config::Enable::Health)
@@ -96,7 +96,7 @@ void printConfig()
 
 		std::cout << "Infinite Jump             [ " << std::boolalpha << config::Enable::InfJump << " ]\n";
 
-		bPrintConfig = false;
+		s_bPrintConfig = false;
 	}
 }
 
