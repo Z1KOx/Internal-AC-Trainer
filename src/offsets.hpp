@@ -94,7 +94,7 @@ namespace offsets
 	inline constexpr DWORD ShowVelocity = 0x18A90C;
 	inline constexpr DWORD BlankOutHud = 0x18A910;
 	inline constexpr DWORD GameSpeed = 0x191F38;
-	inline constexpr DWORD Jump = 0x195164;
+	inline constexpr DWORD IsJump = 0x195164;
 	inline constexpr DWORD RightHand = 0x190D34;
 	inline constexpr DWORD ShowPosDbg = 0x18A904;
 }
