@@ -94,7 +94,9 @@ void printConfig()
 		std::cout << "Weapon No KickBack        [ " << std::boolalpha << config::Enable::WeaponNoKickBack << " ]\n";
 		std::cout << "Weapon No Recoil          [ " << std::boolalpha << config::Enable::WeaponNoRecoil << " ]\n\n";
 
-		std::cout << "Infinite Jump             [ " << std::boolalpha << config::Enable::InfJump << " ]\n";
+		std::cout << "Infinite Jump             [ " << std::boolalpha << config::Enable::InfJump << " ]\n\n";
+
+		std::cout << "Show BulletHoles          [ " << std::boolalpha << config::Enable::showBulletHoles << " ]\n";
 
 		bPrintConfig = false;
 	}
@@ -109,68 +111,74 @@ void MainHack()
 		if (GetAsyncKeyState(VK_END))
 			break;
 
-		const uintptr_t* localPlayer = (uintptr_t*)(moduleBase + offsets::LocalPlayerObject);
+		const uintptr_t* localPlayerPtr = (uintptr_t*)(moduleBase + offsets::LocalPlayerObject);
 
 		printConfig();
 
-		if (localPlayer)
+		if (localPlayerPtr)
 		{
 			if (config::Enable::Health)
-				*(int*)(*localPlayer + offsets::Health) = config::Value::Health;
+				*(int*)(*localPlayerPtr + offsets::Health) = config::Value::Health;
 			if (config::Enable::Armour)
-				*(int*)(*localPlayer + offsets::Armour) = config::Value::Armour;
+				*(int*)(*localPlayerPtr + offsets::Armour) = config::Value::Armour;
 
 			if (config::Enable::AssaultRifleClip)
-				*(int*)(*localPlayer + offsets::AssaultRifleClip) = config::Value::AssaultRifleClip;
+				*(int*)(*localPlayerPtr + offsets::AssaultRifleClip) = config::Value::AssaultRifleClip;
 			if (config::Enable::AssaultRifleReserve)
-				*(int*)(*localPlayer + offsets::AssaultRifleReserve) = config::Value::AssaultRifleReserve;
+				*(int*)(*localPlayerPtr + offsets::AssaultRifleReserve) = config::Value::AssaultRifleReserve;
 
 			if (config::Enable::SubmachineGunClip)
-				*(int*)(*localPlayer + offsets::SubmachineGunClip) = config::Value::SubmachineGunClip;
+				*(int*)(*localPlayerPtr + offsets::SubmachineGunClip) = config::Value::SubmachineGunClip;
 			if (config::Enable::SubmachineGunReserve)
-				*(int*)(*localPlayer + offsets::SubmachineGunReserve) = config::Value::SubmachineGunReserve;
+				*(int*)(*localPlayerPtr + offsets::SubmachineGunReserve) = config::Value::SubmachineGunReserve;
 
 			if (config::Enable::SniperRifleClip)
-				*(int*)(*localPlayer + offsets::SniperRifleClip) = config::Value::SniperRifleClip;
+				*(int*)(*localPlayerPtr + offsets::SniperRifleClip) = config::Value::SniperRifleClip;
 			if (config::Enable::SniperRifleReserve)
-				*(int*)(*localPlayer + offsets::SniperRifleReserve) = config::Value::SniperRifleReserve;
+				*(int*)(*localPlayerPtr + offsets::SniperRifleReserve) = config::Value::SniperRifleReserve;
 
 			if (config::Enable::CombatShotgunClip)
-				*(int*)(*localPlayer + offsets::CombatShotgunClip) = config::Value::CombatShotgunClip;
+				*(int*)(*localPlayerPtr + offsets::CombatShotgunClip) = config::Value::CombatShotgunClip;
 			if (config::Enable::CombatShotgunReserve)
-				*(int*)(*localPlayer + offsets::CombatShotgunReserve) = config::Value::CombatShotgunReserve;
+				*(int*)(*localPlayerPtr + offsets::CombatShotgunReserve) = config::Value::CombatShotgunReserve;
 
 			if (config::Enable::CarbineRifleClip)
-				*(int*)(*localPlayer + offsets::CarbineRifleClip) = config::Value::CarbineRifleClip;
+				*(int*)(*localPlayerPtr + offsets::CarbineRifleClip) = config::Value::CarbineRifleClip;
 			if (config::Enable::CarbineRifleReserve)
-				*(int*)(*localPlayer + offsets::CarbineRifleReserve) = config::Value::CarbineRifleReserve;
+				*(int*)(*localPlayerPtr + offsets::CarbineRifleReserve) = config::Value::CarbineRifleReserve;
 
 			if (config::Enable::PistolClip)
-				*(int*)(*localPlayer + offsets::PistolClip) = config::Value::PistolClip;
+				*(int*)(*localPlayerPtr + offsets::PistolClip) = config::Value::PistolClip;
 			if (config::Enable::PistolReserve)
-				*(int*)(*localPlayer + offsets::PistolReserve) = config::Value::PistolReserve;
+				*(int*)(*localPlayerPtr + offsets::PistolReserve) = config::Value::PistolReserve;
 
 			if (config::Enable::Grenade)
-				*(int*)(*localPlayer + offsets::Grenade) = config::Value::Grenade;
+				*(int*)(*localPlayerPtr + offsets::Grenade) = config::Value::Grenade;
 
 
 			if (config::Enable::WeaponSound)
-				*(int*)mem::FindDMAAddy(moduleBase + 0x18AC00, { offsets::WeaponSound }) = config::Value::WeaponSound;
+				*(int*)mem::FindDMAAddy((uintptr_t)localPlayerPtr, { offsets::WeaponSound }) = config::Value::WeaponSound;
 			if (config::Enable::WeaponRapidfire)
 			{
-				*(int*)mem::FindDMAAddy(moduleBase + 0x18AC00, { offsets::WeaponRapidfire }) = 0;
-				*(int*)mem::FindDMAAddy(moduleBase + 0x18AC00, { offsets::WeaponIsAuto }) = 1;
+				*(int*)mem::FindDMAAddy((uintptr_t)localPlayerPtr, { offsets::WeaponRapidfire }) = 0;
+				*(int*)mem::FindDMAAddy((uintptr_t)localPlayerPtr, { offsets::WeaponIsAuto }) = 1;
 			}
 			if (config::Enable::WeaponDamage)
-				*(int*)mem::FindDMAAddy(moduleBase + 0x18AC00, { offsets::WeaponDamage }) = config::Value::WeaponDamage;
+				*(int*)mem::FindDMAAddy((uintptr_t)localPlayerPtr, { offsets::WeaponDamage }) = config::Value::WeaponDamage;
 			if (config::Enable::WeaponNoKickBack)
-				*(int*)mem::FindDMAAddy(moduleBase + 0x18AC00, { offsets::WeaponKickBack }) = 0;
+				*(int*)mem::FindDMAAddy((uintptr_t)localPlayerPtr, { offsets::WeaponKickBack }) = 0;
 			if (config::Enable::WeaponNoRecoil)
-				*(int*)mem::FindDMAAddy(moduleBase + 0x18AC00, { offsets::WeaponRecoil }) = 0;
+				*(int*)mem::FindDMAAddy((uintptr_t)localPlayerPtr, { offsets::WeaponRecoil }) = 0;
 
 
 			if (config::Enable::InfJump)
-				*(int*)(*localPlayer + offsets::Infjump) = 1;
+				*(int*)(*localPlayerPtr + offsets::Infjump) = 1;
+
+			if (config::Enable::showBulletHoles)
+				*(int*)(moduleBase + offsets::BulletHole) = 0;
+			
+			if (config::Enable::noSway)
+				*(int*)(moduleBase + offsets::NoSway) = 1;
 		}
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
