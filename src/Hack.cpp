@@ -4,9 +4,9 @@
 
 void printConfig()
 {
-	static bool bPrintConfig{ true };
+	static bool s_bPrintConfig{ true };
 
-	if (bPrintConfig)
+	if (s_bPrintConfig)
 	{
 		std::cout << "Keybind END will eject this trainer\n\n\n";
 		if (config::Enable::Health)
@@ -98,7 +98,7 @@ void printConfig()
 
 		std::cout << "Show BulletHoles          [ " << std::boolalpha << config::Enable::showBulletHoles << " ]\n";
 
-		bPrintConfig = false;
+		s_bPrintConfig = false;
 	}
 }
 
