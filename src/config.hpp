@@ -34,6 +34,7 @@ namespace config
 		// Please keep only one rapidfire methode on true
 		constexpr bool WeaponRapidfireAll = false; // If you switch guns than they will disappear
 		constexpr bool WeaponRapidfire = true; // You can switch guns but you cant rapidfire with semi guns like snipers, pistol
+		constexpr bool WeaponRapidfire = true;     // You can switch guns but you cant rapidfire with semi guns like snipers, pistol
 
 		constexpr bool WeaponNoKickBack = true;
 		constexpr bool WeaponNoRecoil = true;
@@ -74,6 +75,8 @@ namespace config
 		constexpr int WeaponSound = 2;
 		constexpr int WeaponDamage = 100;
 	}
+
+	void PrintSettings();
 }
 
 #endif
