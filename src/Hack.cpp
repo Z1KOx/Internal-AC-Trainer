@@ -19,13 +19,12 @@ void MainHack()
 
 		if (localPlayerPtr)
 		{
-			float local_x_position = *(FLOAT*)(mem::FindDMAAddy4Bytes((uintptr_t)localPlayerPtr, { offsets::X_position }));
-			float local_y_position = *(FLOAT*)(mem::FindDMAAddy4Bytes((uintptr_t)localPlayerPtr, { offsets::Y_position }));
-			float local_z_position = *(FLOAT*)(mem::FindDMAAddy4Bytes((uintptr_t)localPlayerPtr, { offsets::Z_position }));
-
-
 			if (entityList)
 			{
+				float local_x_position = *(float*)(mem::FindDMAAddy4Bytes((uintptr_t)localPlayerPtr, { offsets::X_position }));
+				float local_y_position = *(float*)(mem::FindDMAAddy4Bytes((uintptr_t)localPlayerPtr, { offsets::Y_position }));
+				float local_z_position = *(float*)(mem::FindDMAAddy4Bytes((uintptr_t)localPlayerPtr, { offsets::Z_position }));
+				
 				std::vector<uintptr_t> entities;
 
 				for (DWORD i{ 1 }; i < playerCount; ++i)
