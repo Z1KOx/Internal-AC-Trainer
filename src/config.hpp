@@ -32,8 +32,6 @@ namespace config
 		constexpr bool WeaponDamage = true;
 
 		// Please keep only one rapidfire methode on true
-		constexpr bool WeaponRapidfireAll = false; // If you switch guns than they will disappear
-		constexpr bool WeaponRapidfire = true;     // You can switch guns but you cant rapidfire with semi guns like snipers, pistol
 		constexpr bool WeaponRapidfireAll = false; // If you switch guns than they will disappear but you can rapidfire will all guns
 		constexpr bool WeaponRapidfire = true;     // You can switch guns but you cant rapidfire with semi guns e.g. snipers, pistol
 
@@ -42,10 +40,12 @@ namespace config
 
 		constexpr bool InfJump = true;
 
-		constexpr bool showBulletHoles = true;
-		constexpr bool noSway = true;
+		constexpr bool ShowBulletHoles = true;
+		constexpr bool NoSway = true;
 
-		constexpr bool teleportEnemies = true;
+		constexpr bool TeleportEnemies = true;
+
+		constexpr bool Aimbot = true; // ADDING SOON KEYBIND SUPPORT DEFAULT IS CONTROL!
 	}
 
 	namespace Value

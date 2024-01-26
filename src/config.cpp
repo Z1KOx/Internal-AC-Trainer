@@ -98,9 +98,11 @@ namespace config
 
 			std::cout << "Infinite Jump             [ " << std::boolalpha << config::Enable::InfJump << " ]\n\n";
 
-			std::cout << "Show BulletHoles          [ " << std::boolalpha << config::Enable::showBulletHoles << " ]\n\n";
+			std::cout << "Show BulletHoles          [ " << std::boolalpha << config::Enable::ShowBulletHoles << " ]\n\n";
 
-			std::cout << "Teleport Enemies          [ " << std::boolalpha << config::Enable::teleportEnemies << " ]\n";
+			std::cout << "Teleport Enemies          [ " << std::boolalpha << config::Enable::TeleportEnemies << " ]\n\n";
+
+			std::cout << "Aimbot                    [ " << std::boolalpha << config::Enable::Aimbot << " ]\n";
 
 			s_bPrintConfig = false;
 		}

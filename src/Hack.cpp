@@ -2,6 +2,8 @@
 #include "config.hpp"
 #include "mem.hpp"
 
+#include "Aimbot.hpp"
+
 void MainHack()
 {
 	const uintptr_t moduleBase = (uintptr_t)GetModuleHandleA("ac_client.exe");
@@ -13,8 +15,8 @@ void MainHack()
 
 		config::PrintSettings();
 
-		const uintptr_t* localPlayerPtr = (uintptr_t*)(moduleBase + offsets::LocalPlayerObject);
-		const uintptr_t* entityList = (uintptr_t*)(moduleBase + offsets::EntityList);
+		uintptr_t* localPlayerPtr = (uintptr_t*)(moduleBase + offsets::LocalPlayerObject);
+		uintptr_t* entityList = (uintptr_t*)(moduleBase + offsets::EntityList);
 		const uintptr_t playerCount = *(uintptr_t*)(moduleBase + offsets::EntityCount);
 
 		if (localPlayerPtr)
@@ -28,16 +30,17 @@ void MainHack()
 			{
 				std::vector<uintptr_t> entities;
 
-				for (DWORD i{ 1 }; i < playerCount; ++i)
+				if (config::Enable::TeleportEnemies)
 				{
-					WORD counter = 0x4 * i;
+					for (DWORD i{ 1 }; i < playerCount; ++i)
+					{
+						WORD counter = 0x4 * i;
 
-					if (uintptr_t entity = *(int*)mem::FindDMAAddy4Bytes((uintptr_t)entityList, { counter }))
-						entities.push_back(counter);
-				}
+						if (uintptr_t entity = *(int*)mem::FindDMAAddy4Bytes((uintptr_t)entityList, { counter }))
+							entities.push_back(counter);
+					}
 
-				if (config::Enable::teleportEnemies)
-				{
+
 					for (const auto& entity : entities)
 					{
 						*(float*)(mem::FindDMAAddy4Bytes((uintptr_t)entityList, { (WORD)entity, offsets::X_position })) = local_x_position + 5.f;
@@ -45,6 +48,9 @@ void MainHack()
 						*(float*)(mem::FindDMAAddy4Bytes((uintptr_t)entityList, { (WORD)entity, offsets::Z_position })) = local_z_position;
 					}
 				}
+
+				if (config::Enable::Aimbot)
+					Aimbot(moduleBase);
 			}
 
 			if (config::Enable::Health)
@@ -85,10 +91,10 @@ void MainHack()
 			if (config::Enable::Grenade)
 				*(int*)(*localPlayerPtr + offsets::Grenade) = config::Value::Grenade;
 
-			
+
 			if (config::Enable::WeaponSound)
 				*(int*)mem::FindDMAAddy2Bytes((uintptr_t)localPlayerPtr, { offsets::WeaponSound }) = config::Value::WeaponSound;
-			
+
 			if (config::Enable::WeaponRapidfireAll)
 			{
 				*(int*)mem::FindDMAAddy2Bytes((uintptr_t)localPlayerPtr, { offsets::WeaponRapidfire }) = 0;
@@ -109,10 +115,10 @@ void MainHack()
 			if (config::Enable::InfJump)
 				*(int*)(*localPlayerPtr + offsets::Infjump) = 1;
 
-			if (config::Enable::showBulletHoles)
+			if (config::Enable::ShowBulletHoles)
 				*(int*)(moduleBase + offsets::BulletHole) = 0;
 
-			if (config::Enable::noSway)
+			if (config::Enable::NoSway)
 				*(int*)(moduleBase + offsets::NoSway) = 1;
 		}
 
