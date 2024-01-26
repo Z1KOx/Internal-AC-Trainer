@@ -13,7 +13,7 @@ void Aimbot(uintptr_t moduleBase)
 	Vec3 localHeadPos = *(Vec3*)(localplayer + offsets::X_headPosition);
 	uintptr_t localTeam = *(uintptr_t*)(localplayer + offsets::Team);
 
-	uintptr_t nEntity = localplayer;
+	uintptr_t BestEntity = localplayer;
 	float dist = 1000;
 
 	for (int i = 1; i < playerCount; i++)
@@ -26,12 +26,12 @@ void Aimbot(uintptr_t moduleBase)
 
 		if ((localHeadPos - entityHeadPos).hypo3() < dist && localTeam != entityTeam)
 		{
-			nEntity = entity;
+			BestEntity = entity;
 			dist = (localHeadPos - entityHeadPos).hypo3();
 		}
 	}
 
-	Vec3 delta = (*(Vec3*)(nEntity + offsets::X_headPosition) - localHeadPos);
+	Vec3 delta = (*(Vec3*)(BestEntity + offsets::X_headPosition) - localHeadPos);
 
 	float yaw = atan2f(delta.y, delta.x) * 180 / M_PI;
 	float hyp = sqrt(delta.x * delta.x + delta.y * delta.y);
