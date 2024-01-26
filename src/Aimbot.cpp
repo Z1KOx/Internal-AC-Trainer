@@ -21,7 +21,6 @@ void Aimbot(uintptr_t moduleBase)
 		uintptr_t entity = *(uintptr_t*)(entityList + offsets::X_headPosition * i);
 
 		uintptr_t entityTeam = *(uintptr_t*)(entity + offsets::Team);
-		uintptr_t entityState = *(uintptr_t*)(entity + offsets::IsDead);
 		Vec3 entityHeadPos = *(Vec3*)(entity + offsets::X_headPosition);
 
 		if ((localHeadPos - entityHeadPos).hypo3() < distance && localTeam != entityTeam)
