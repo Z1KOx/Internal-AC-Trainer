@@ -14,7 +14,7 @@ void Aimbot(uintptr_t moduleBase)
 	uintptr_t localTeam = *(uintptr_t*)(localplayer + offsets::Team);
 
 	uintptr_t BestEntity = localplayer;
-	float dist = 1000;
+	float distance = 1000;
 
 	for (int i = 1; i < playerCount; i++)
 	{
@@ -24,10 +24,10 @@ void Aimbot(uintptr_t moduleBase)
 		uintptr_t entityState = *(uintptr_t*)(entity + offsets::IsDead);
 		Vec3 entityHeadPos = *(Vec3*)(entity + offsets::X_headPosition);
 
-		if ((localHeadPos - entityHeadPos).hypo3() < dist && localTeam != entityTeam)
+		if ((localHeadPos - entityHeadPos).hypo3() < distance && localTeam != entityTeam)
 		{
 			BestEntity = entity;
-			dist = (localHeadPos - entityHeadPos).hypo3();
+			distance = (localHeadPos - entityHeadPos).hypo3();
 		}
 	}
 
