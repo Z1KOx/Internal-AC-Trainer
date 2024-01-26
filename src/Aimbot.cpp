@@ -18,7 +18,7 @@ void Aimbot(uintptr_t moduleBase)
 
 	for (int i = 1; i < playerCount; i++)
 	{
-		uintptr_t entity = *(uintptr_t*)(entityList + offsets::X_headPosition * i);
+		uintptr_t entity = *(uintptr_t*)(entityList + 0x4 * i);
 
 		uintptr_t entityTeam = *(uintptr_t*)(entity + offsets::Team);
 		Vec3 entityHeadPos = *(Vec3*)(entity + offsets::X_headPosition);
