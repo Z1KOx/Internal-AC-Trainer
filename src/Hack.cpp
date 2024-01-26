@@ -90,13 +90,16 @@ void printConfig()
 		else
 			std::cout << "Weapon Damage             [ " << std::boolalpha << config::Enable::WeaponDamage << " ]\n";
 
+		std::cout << "Weapon RapidfireAll       [ " << std::boolalpha << config::Enable::WeaponRapidfireAll << " ]\n";
 		std::cout << "Weapon Rapidfire          [ " << std::boolalpha << config::Enable::WeaponRapidfire << " ]\n";
 		std::cout << "Weapon No KickBack        [ " << std::boolalpha << config::Enable::WeaponNoKickBack << " ]\n";
 		std::cout << "Weapon No Recoil          [ " << std::boolalpha << config::Enable::WeaponNoRecoil << " ]\n\n";
 
 		std::cout << "Infinite Jump             [ " << std::boolalpha << config::Enable::InfJump << " ]\n\n";
 
-		std::cout << "Show BulletHoles          [ " << std::boolalpha << config::Enable::showBulletHoles << " ]\n";
+		std::cout << "Show BulletHoles          [ " << std::boolalpha << config::Enable::showBulletHoles << " ]\n\n";
+
+		std::cout << "Teleport Enemies          [ " << std::boolalpha << config::Enable::teleportEnemies << " ]\n";
 
 		s_bPrintConfig = false;
 	}
@@ -112,11 +115,40 @@ void MainHack()
 			break;
 
 		const uintptr_t* localPlayerPtr = (uintptr_t*)(moduleBase + offsets::LocalPlayerObject);
+		const uintptr_t* entityList = (uintptr_t*)(moduleBase + offsets::EntityList);
+		const uintptr_t playerCount = *(uintptr_t*)(moduleBase + offsets::EntityCount);
 
 		printConfig();
 
 		if (localPlayerPtr)
 		{
+			float local_x_position = *(float*)(mem::FindDMAAddy4Bytes((uintptr_t)localPlayerPtr, { offsets::X_position }));
+			float local_y_position = *(float*)(mem::FindDMAAddy4Bytes((uintptr_t)localPlayerPtr, { offsets::Y_position }));
+			float local_z_position = *(float*)(mem::FindDMAAddy4Bytes((uintptr_t)localPlayerPtr, { offsets::Z_position }));
+
+			if (entityList)
+			{
+				std::vector<uintptr_t> entities;
+
+				for (unsigned int i{ 1 }; i < playerCount; ++i)
+				{
+					unsigned short counter = 0x4 * i;
+
+					if (uintptr_t entity = *(int*)mem::FindDMAAddy4Bytes((uintptr_t)entityList, { counter }))
+						entities.push_back(counter);
+				}
+
+				if (config::Enable::teleportEnemies)
+				{
+					for (const auto& entity : entities)
+					{
+						*(float*)(mem::FindDMAAddy4Bytes((uintptr_t)entityList, { (unsigned short)entity, offsets::X_position })) = local_x_position + 5.f;
+						*(float*)(mem::FindDMAAddy4Bytes((uintptr_t)entityList, { (unsigned short)entity, offsets::Y_position })) = local_y_position;
+						*(float*)(mem::FindDMAAddy4Bytes((uintptr_t)entityList, { (unsigned short)entity, offsets::Z_position })) = local_z_position;
+					}
+				}
+			}
+
 			if (config::Enable::Health)
 				*(int*)(*localPlayerPtr + offsets::Health) = config::Value::Health;
 			if (config::Enable::Armour)
@@ -155,32 +187,37 @@ void MainHack()
 			if (config::Enable::Grenade)
 				*(int*)(*localPlayerPtr + offsets::Grenade) = config::Value::Grenade;
 
-
+			
 			if (config::Enable::WeaponSound)
-				*(int*)mem::FindDMAAddy((uintptr_t)localPlayerPtr, { offsets::WeaponSound }) = config::Value::WeaponSound;
+				*(int*)mem::FindDMAAddy2Bytes((uintptr_t)localPlayerPtr, { offsets::WeaponSound }) = config::Value::WeaponSound;
+			
+			if (config::Enable::WeaponRapidfireAll)
+			{
+				*(int*)mem::FindDMAAddy2Bytes((uintptr_t)localPlayerPtr, { offsets::WeaponRapidfire }) = 0;
+				*(int*)mem::FindDMAAddy2Bytes((uintptr_t)localPlayerPtr, { offsets::WeaponIsAuto }) = 1;
+			}
 			if (config::Enable::WeaponRapidfire)
 			{
-				*(int*)mem::FindDMAAddy((uintptr_t)localPlayerPtr, { offsets::WeaponRapidfire }) = 0;
-				*(int*)mem::FindDMAAddy((uintptr_t)localPlayerPtr, { offsets::WeaponIsAuto }) = 1;
+				*(int*)mem::FindDMAAddy2Bytes((uintptr_t)localPlayerPtr, { offsets::WeaponRapidfire }) = 0;
 			}
-			if (config::Enable::WeaponDamage)
-				*(int*)mem::FindDMAAddy((uintptr_t)localPlayerPtr, { offsets::WeaponDamage }) = config::Value::WeaponDamage;
-			if (config::Enable::WeaponNoKickBack)
-				*(int*)mem::FindDMAAddy((uintptr_t)localPlayerPtr, { offsets::WeaponKickBack }) = 0;
-			if (config::Enable::WeaponNoRecoil)
-				*(int*)mem::FindDMAAddy((uintptr_t)localPlayerPtr, { offsets::WeaponRecoil }) = 0;
 
+			if (config::Enable::WeaponDamage)
+				*(int*)mem::FindDMAAddy2Bytes((uintptr_t)localPlayerPtr, { offsets::WeaponDamage }) = config::Value::WeaponDamage;
+			if (config::Enable::WeaponNoKickBack)
+				*(int*)mem::FindDMAAddy2Bytes((uintptr_t)localPlayerPtr, { offsets::WeaponKickBack }) = 0;
+			if (config::Enable::WeaponNoRecoil)
+				*(int*)mem::FindDMAAddy2Bytes((uintptr_t)localPlayerPtr, { offsets::WeaponRecoil }) = 0;
 
 			if (config::Enable::InfJump)
 				*(int*)(*localPlayerPtr + offsets::Infjump) = 1;
 
 			if (config::Enable::showBulletHoles)
 				*(int*)(moduleBase + offsets::BulletHole) = 0;
-			
+
 			if (config::Enable::noSway)
 				*(int*)(moduleBase + offsets::NoSway) = 1;
 		}
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		std::this_thread::sleep_for(std::chrono::milliseconds(2));
 	}
 }

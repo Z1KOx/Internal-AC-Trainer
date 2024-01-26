@@ -30,7 +30,11 @@ namespace config
 
 		constexpr bool WeaponSound = true;
 		constexpr bool WeaponDamage = true;
-		constexpr bool WeaponRapidfire = false; // If you switch guns than they will disappear
+
+		// Please keep only one rapidfire methode on true
+		constexpr bool WeaponRapidfireAll = false; // If you switch guns than they will disappear
+		constexpr bool WeaponRapidfire = true; // You can switch guns but you cant rapidfire with semi guns like snipers, pistol
+
 		constexpr bool WeaponNoKickBack = true;
 		constexpr bool WeaponNoRecoil = true;
 
@@ -38,6 +42,8 @@ namespace config
 
 		constexpr bool showBulletHoles = true;
 		constexpr bool noSway = true;
+
+		constexpr bool teleportEnemies = true;
 	}
 
 	namespace Value

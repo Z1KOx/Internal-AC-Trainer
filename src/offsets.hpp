@@ -49,6 +49,8 @@ namespace offsets
 	inline constexpr ::std::ptrdiff_t LocalPlayerObject = 0x18AC00;
 	inline constexpr ::std::ptrdiff_t EntityList = 0x18AC04;
 
+	inline constexpr ::std::ptrdiff_t EntityCount = 0x18AC0C;
+
 	// Some random offsets i've reverse engineered recently for fun
 	inline constexpr DWORD IsScoping = 0x66;
 	inline constexpr DWORD IsDead = 0x76;
