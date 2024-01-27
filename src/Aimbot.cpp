@@ -17,6 +17,7 @@ void Aimbot(uintptr_t moduleBase)
 	uintptr_t bestEntity = localplayer;
 	float distance = 1000;
 
+
 	for (int i = 1; i < playerCount; i++)
 	{
 		uintptr_t entity = *(uintptr_t*)(entityList + 0x4 * i);
@@ -25,6 +26,9 @@ void Aimbot(uintptr_t moduleBase)
 		uintptr_t entityHealth = *(uintptr_t*)(entity + offsets::Health);
 		BYTE entityOnScreen = *(BYTE*)(moduleBase + offsets::EntityDrawen);
 		Vec3 entityHeadPos = *(Vec3*)(entity + offsets::X_headPosition);
+
+		if (!GetAsyncKeyState(VK_CONTROL))
+			continue;
 
 		if (entityHealth < 0 || entityHealth < 100)
 			continue;
@@ -49,14 +53,11 @@ void Aimbot(uintptr_t moduleBase)
 		float smooth = config::Value::aimbotSmoothness;
 		float fov = config::Value::aimbotFov;
 
-		if (GetAsyncKeyState(VK_CONTROL))
+		if (std::abs(*(float*)(localplayer + offsets::X_view) - dx) <= fov &&
+			std::abs(*(float*)(localplayer + offsets::Y_view) - dy) <= fov)
 		{
-			if (std::abs(*(float*)(localplayer + offsets::X_view) - dx) <= fov &&
-				std::abs(*(float*)(localplayer + offsets::Y_view) - dy) <= fov)
-			{
-				*(float*)(localplayer + offsets::X_view) = (1.0 - smooth) * *(float*)(localplayer + offsets::X_view) + smooth * dx;
-				*(float*)(localplayer + offsets::Y_view) = (1.0 - smooth) * *(float*)(localplayer + offsets::Y_view) + smooth * dy;
-			}
+			*(float*)(localplayer + offsets::X_view) = (1.0 - smooth) * *(float*)(localplayer + offsets::X_view) + smooth * dx;
+			*(float*)(localplayer + offsets::Y_view) = (1.0 - smooth) * *(float*)(localplayer + offsets::Y_view) + smooth * dy;
 		}
 	}
 }
