@@ -16,14 +16,17 @@ void Aimbot(uintptr_t moduleBase)
 
 <<<<<<< HEAD
 	uintptr_t bestEntity = localplayer;
+=======
+	uintptr_t BestEntity = localplayer;
+>>>>>>> 7821238166c5cb2234721295fe7d67d1257c116d
 	float distance = 1000;
 
 	for (int i = 1; i < playerCount; i++)
 	{
-		uintptr_t entity = *(uintptr_t*)(entityList + offsets::X_headPosition * i);
 		uintptr_t entity = *(uintptr_t*)(entityList + 0x4 * i);
 
 		uintptr_t entityTeam = *(uintptr_t*)(entity + offsets::Team);
+<<<<<<< HEAD
 		uintptr_t entityHealth = *(uintptr_t*)(entity + offsets::Health);
 		BYTE entityOnScreen = *(BYTE*)(moduleBase + offsets::EntityDrawen);
 		Vec3 entityHeadPos = *(Vec3*)(entity + offsets::X_headPosition);
@@ -61,7 +64,9 @@ void Aimbot(uintptr_t moduleBase)
 			}
 		}
 	}
-}}
+}
+=======
+		Vec3 entityHeadPos = *(Vec3*)(entity + offsets::X_headPosition);
 
 		if ((localHeadPos - entityHeadPos).hypo3() < distance && localTeam != entityTeam)
 		{
