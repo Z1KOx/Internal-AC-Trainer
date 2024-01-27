@@ -14,12 +14,14 @@ void Aimbot(uintptr_t moduleBase)
 	Vec3 localHeadPos = *(Vec3*)(localplayer + offsets::X_headPosition);
 	uintptr_t localTeam = *(uintptr_t*)(localplayer + offsets::Team);
 
+<<<<<<< HEAD
 	uintptr_t bestEntity = localplayer;
 	float distance = 1000;
 
 	for (int i = 1; i < playerCount; i++)
 	{
 		uintptr_t entity = *(uintptr_t*)(entityList + offsets::X_headPosition * i);
+		uintptr_t entity = *(uintptr_t*)(entityList + 0x4 * i);
 
 		uintptr_t entityTeam = *(uintptr_t*)(entity + offsets::Team);
 		uintptr_t entityHealth = *(uintptr_t*)(entity + offsets::Health);
@@ -59,4 +61,27 @@ void Aimbot(uintptr_t moduleBase)
 			}
 		}
 	}
+}}
+
+		if ((localHeadPos - entityHeadPos).hypo3() < distance && localTeam != entityTeam)
+		{
+			BestEntity = entity;
+			distance = (localHeadPos - entityHeadPos).hypo3();
+		}
+	}
+
+	Vec3 delta = (*(Vec3*)(BestEntity + offsets::X_headPosition) - localHeadPos);
+
+	float yaw = atan2f(delta.y, delta.x) * 180 / M_PI;
+	float hyp = sqrt(delta.x * delta.x + delta.y * delta.y);
+	float pitch = atan2f(delta.z, hyp) * 180 / M_PI;
+
+	pitch + 90;
+
+	if (GetAsyncKeyState(VK_CONTROL))
+	{
+		*(float*)(localplayer + offsets::X_view) = yaw + 90;
+		*(float*)(localplayer + offsets::Y_view) = pitch;
+	}
 }
+>>>>>>> 7821238166c5cb2234721295fe7d67d1257c116d
