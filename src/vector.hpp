@@ -1,7 +1,7 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-#include <cmath>
+#include "pch.hpp"
 
 struct Vec3 
 {

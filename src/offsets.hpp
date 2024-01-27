@@ -50,10 +50,11 @@ namespace offsets
 	inline constexpr ::std::ptrdiff_t EntityList = 0x18AC04;
 
 	inline constexpr ::std::ptrdiff_t EntityCount = 0x18AC0C;
+	inline constexpr ::std::ptrdiff_t EntityDrawen = 0x19209F;
 
 	// Some random offsets i've reverse engineered recently for fun
 	inline constexpr DWORD IsScoping = 0x66;
-	inline constexpr DWORD IsDead = 0x76;
+	inline constexpr BYTE IsDead = 0x76;
 	inline constexpr DWORD CN = 0x1C4;
 	inline constexpr DWORD CurrAmmo = 0x364 + 0x14 + 0x0;
 	inline constexpr DWORD CurrWeapon = 0x364 + 0x4;

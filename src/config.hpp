@@ -43,7 +43,7 @@ namespace config
 		constexpr bool ShowBulletHoles = true;
 		constexpr bool NoSway = true;
 
-		constexpr bool TeleportEnemies = true;
+		constexpr bool TeleportEnemies = false;
 
 		constexpr bool Aimbot = true; // ADDING SOON KEYBIND SUPPORT DEFAULT IS CONTROL!
 	}
@@ -75,6 +75,9 @@ namespace config
 
 		constexpr int WeaponSound = 2;
 		constexpr int WeaponDamage = 100;
+
+		constexpr float aimbotSmoothness = 0.1f;
+		constexpr float aimbotFov = 20.f;
 	}
 
 	void PrintSettings();

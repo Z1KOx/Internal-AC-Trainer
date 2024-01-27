@@ -5,5 +5,6 @@
 #include <Windows.h>
 #include <vector>
 #include <thread>
+#include <cmath>
 
 #endif
