@@ -20,7 +20,7 @@ void Initilize(HINSTANCE hModule)
 	Uninitilize(hModule, f);
 }
 
-BOOL APIENTRY DllMain(
+bool __stdcall DllMain(
 	HINSTANCE hModule,
 	DWORD ul_reason_for_call,
 	LPVOID lpvReserved
