@@ -1,6 +1,5 @@
 #include "offsets.hpp"
 #include "config.hpp"
-#include "mem.hpp"
 
 void MainHack()
 {
