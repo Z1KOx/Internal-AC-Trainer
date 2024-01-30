@@ -59,8 +59,4 @@ void Aimbot(uintptr_t moduleBase)
 			*(float*)(localplayer + offsets::Y_view) = (1.0 - smooth) * *(float*)(localplayer + offsets::Y_view) + smooth * dy;
 		}
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> c91fb79fd8eedace6917ef5740086144397aba4d
