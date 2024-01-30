@@ -98,6 +98,8 @@ namespace offsets
 	inline constexpr BYTE GameSpeed = 0x191F38;
 	inline constexpr BYTE RightHand = 0x190D34;
 	inline constexpr BYTE ShowPosDbg = 0x18A904;
+	inline constexpr DWORD EntityCount = 0x18AC0C;
+	inline constexpr DWORD EntityDrawen = 0x19209F;
 }
 
 #endif
