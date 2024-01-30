@@ -15,7 +15,7 @@ void teleportEntities(uintptr_t* localPlayerPtr, uintptr_t* entityList, uintptr_
 
 	if (config::Enable::TeleportEnemies)
 	{
-		for (DWORD i{ 1 }; i < playerCount; ++i)
+		for (size_t i{ 1 }; i < playerCount; ++i)
 		{
 			WORD counter = 0x4 * i;
 
