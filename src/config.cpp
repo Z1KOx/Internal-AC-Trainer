@@ -1,5 +1,8 @@
 #include "config.hpp"
-#include "pch.hpp"
+#include "mem.hpp"
+#include "offsets.hpp"
+#include "Teleport.hpp"
+#include "Aimbot.hpp"
 
 namespace config
 {
@@ -91,20 +94,109 @@ namespace config
 			else
 				std::cout << "Weapon Damage             [ " << std::boolalpha << config::Enable::WeaponDamage << " ]\n";
 
-			std::cout << "Weapon RapidfireAll       [ " << std::boolalpha << config::Enable::WeaponRapidfireAll << " ]\n";
+			//std::cout << "Weapon RapidfireAll       [ " << std::boolalpha << config::Enable::WeaponRapidfireAll << " ]\n";
 			std::cout << "Weapon Rapidfire          [ " << std::boolalpha << config::Enable::WeaponRapidfire << " ]\n";
 			std::cout << "Weapon No KickBack        [ " << std::boolalpha << config::Enable::WeaponNoKickBack << " ]\n";
 			std::cout << "Weapon No Recoil          [ " << std::boolalpha << config::Enable::WeaponNoRecoil << " ]\n\n";
 
-			std::cout << "Infinite Jump             [ " << std::boolalpha << config::Enable::InfJump << " ]\n\n";
-
-			std::cout << "Show BulletHoles          [ " << std::boolalpha << config::Enable::ShowBulletHoles << " ]\n\n";
-
-			std::cout << "Teleport Enemies          [ " << std::boolalpha << config::Enable::TeleportEnemies << " ]\n\n";
-
-			std::cout << "Aimbot                    [ " << std::boolalpha << config::Enable::Aimbot << " ]\n";
+			std::cout << "Teleport Enemies          [ " << std::boolalpha << config::Enable::TeleportEnemies << " ]\n";
+			std::cout << "Aimbot                    [ " << std::boolalpha << config::Enable::Aimbot << ", " << config::Value::aimbotFov << "f, " << config::Value::aimbotSmoothness << "f ]\n";
 
 			s_bPrintConfig = false;
 		}
+	}
+
+	void apply(const uintptr_t* localPlayerPtr, const DWORD offset, const int value, const bool enableFlag)
+	{
+		if (enableFlag)
+			*(int*)(*localPlayerPtr + offset) = value;
+	}
+
+	void applyBYTE(const uintptr_t* localPlayerPtr, const BYTE offset, const int value, const bool enableFlag)
+	{
+		if (enableFlag)
+			*(BYTE*)(*localPlayerPtr + offset) = value;
+	}
+
+	void applyWeapon(uintptr_t* localPlayerPtr, const std::vector<WORD>& offset, int value, const bool enableFlag)
+	{
+		if (enableFlag)
+			*(int*)mem::FindDMAAddy2Bytes((uintptr_t)localPlayerPtr, { offset }) = value;
+	}
+
+	void init(uintptr_t* localPlayerPtr)
+	{
+		constexpr bool enableFlags[] = {
+				config::Enable::Health,
+				config::Enable::Armour,
+				config::Enable::AssaultRifleClip,
+				config::Enable::AssaultRifleReserve,
+				config::Enable::SubmachineGunClip,
+				config::Enable::SubmachineGunReserve,
+				config::Enable::SniperRifleClip,
+				config::Enable::SniperRifleReserve,
+				config::Enable::CombatShotgunClip,
+				config::Enable::CombatShotgunReserve,
+				config::Enable::CarbineRifleClip,
+				config::Enable::CarbineRifleReserve,
+				config::Enable::PistolClip,
+				config::Enable::PistolReserve,
+				config::Enable::Grenade
+		};
+
+		constexpr DWORD offsetArray4Bytes[] = {
+			offsets::Health,
+			offsets::Armour,
+			offsets::AssaultRifleClip,
+			offsets::AssaultRifleReserve,
+			offsets::SubmachineGunClip,
+			offsets::SubmachineGunReserve,
+			offsets::SniperRifleClip,
+			offsets::SniperRifleReserve,
+			offsets::CombatShotgunClip,
+			offsets::CombatShotgunReserve,
+			offsets::CarbineRifleClip,
+			offsets::CarbineRifleReserve,
+			offsets::PistolClip,
+			offsets::PistolReserve,
+			offsets::Grenade,
+		};
+
+		constexpr int valueArray4Bytes[] = {
+			config::Value::Health,
+			config::Value::Armour,
+			config::Value::AssaultRifleClip,
+			config::Value::AssaultRifleReserve,
+			config::Value::SubmachineGunClip,
+			config::Value::SubmachineGunReserve,
+			config::Value::SniperRifleClip,
+			config::Value::SniperRifleReserve,
+			config::Value::CombatShotgunClip,
+			config::Value::CombatShotgunReserve,
+			config::Value::CarbineRifleClip,
+			config::Value::CarbineRifleReserve,
+			config::Value::PistolClip,
+			config::Value::PistolReserve,
+			config::Value::Grenade,
+		};
+
+		constexpr size_t size{ std::size(enableFlags) };
+		for (size_t i{ 0 }; i < size; ++i)
+			config::apply(localPlayerPtr, offsetArray4Bytes[i], valueArray4Bytes[i], enableFlags[i]);
+
+		config::applyWeapon(localPlayerPtr, offsets::WeaponSound, config::Value::WeaponSound, config::Enable::WeaponSound);
+		config::applyWeapon(localPlayerPtr, offsets::WeaponDamage, config::Value::WeaponDamage, config::Enable::WeaponDamage);
+		config::applyWeapon(localPlayerPtr, offsets::WeaponRapidfire, 0, config::Enable::WeaponRapidfire);
+		config::applyWeapon(localPlayerPtr, offsets::WeaponNoKickBack, 0, config::Enable::WeaponNoKickBack);
+		config::applyWeapon(localPlayerPtr, offsets::WeaponNoRecoil, 0, config::Enable::WeaponNoRecoil);
+	}
+
+	void initFeatures(uintptr_t* localPlayerPtr, uintptr_t* entityList, uintptr_t moduleBase)
+	{
+		if (config::Enable::TeleportEnemies)
+			teleportEntities(localPlayerPtr, entityList, moduleBase);
+
+		if (config::Enable::Aimbot)
+			Aimbot(moduleBase);
 	}
 }

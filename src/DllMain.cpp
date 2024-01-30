@@ -20,7 +20,7 @@ void Initilize(HINSTANCE hModule)
 	Uninitilize(hModule, f);
 }
 
-BOOL APIENTRY DllMain(
+BOOL __stdcall DllMain(
 	HINSTANCE hModule,
 	DWORD ul_reason_for_call,
 	LPVOID lpvReserved
@@ -32,7 +32,14 @@ BOOL APIENTRY DllMain(
 	{
 	case DLL_PROCESS_ATTACH:
 	{
-		hThread = CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)Initilize, hModule, 0, nullptr);
+		hThread = CreateThread(
+			nullptr,
+			0,
+			(LPTHREAD_START_ROUTINE)Initilize,
+			hModule,
+			0,
+			nullptr
+		);
 
 		if (hThread)
 		{

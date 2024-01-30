@@ -1,6 +1,8 @@
 #ifndef CONFIH_HPP
 #define CONFIG_HPP
 
+#include "pch.hpp"
+
 namespace config
 {
 	namespace Enable
@@ -30,22 +32,13 @@ namespace config
 
 		constexpr bool WeaponSound = true;
 		constexpr bool WeaponDamage = true;
-
-		// Please keep only one rapidfire methode on true
-		constexpr bool WeaponRapidfireAll = false; // If you switch guns than they will disappear but you can rapidfire will all guns
-		constexpr bool WeaponRapidfire = true;     // You can switch guns but you cant rapidfire with semi guns e.g. snipers, pistol
-
+		constexpr bool WeaponRapidfire = true;
 		constexpr bool WeaponNoKickBack = true;
 		constexpr bool WeaponNoRecoil = true;
 
-		constexpr bool InfJump = true;
-
-		constexpr bool ShowBulletHoles = true;
-		constexpr bool NoSway = true;
-
 		constexpr bool TeleportEnemies = false;
 
-		constexpr bool Aimbot = true; // ADDING SOON KEYBIND SUPPORT DEFAULT IS CONTROL!
+		constexpr bool Aimbot = true; // Default key 'CTRL'
 	}
 
 	namespace Value
@@ -77,10 +70,16 @@ namespace config
 		constexpr int WeaponDamage = 100;
 
 		constexpr float aimbotSmoothness = 0.1f;
-		constexpr float aimbotFov = 20.f;
+		constexpr float aimbotFov = 20.5f;
 	}
 
 	void PrintSettings();
+
+	void apply(const uintptr_t* localPlayerPtr, const DWORD offset, const int value, const bool enableFlag);
+	void applyWeapon(uintptr_t* localPlayerPtr, const std::vector<WORD>& offset, int value, const bool enableFlag);
+	
+	void init(uintptr_t* localPlayerPtr);
+	void initFeatures(uintptr_t* localPlayerPtr, uintptr_t* entityList, uintptr_t moduleBase);
 }
 
 #endif

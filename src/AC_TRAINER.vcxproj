@@ -135,6 +135,7 @@
     <ClCompile Include="config.cpp" />
     <ClCompile Include="DllMain.cpp" />
     <ClCompile Include="Mem.cpp" />
+    <ClCompile Include="Teleport.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aimbot.hpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Mem.hpp" />
     <ClInclude Include="offsets.hpp" />
     <ClInclude Include="pch.hpp" />
+    <ClInclude Include="Teleport.hpp" />
     <ClInclude Include="vector.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
