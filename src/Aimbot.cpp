@@ -1,4 +1,3 @@
-#include "pch.hpp"
 #include "vector.hpp"
 #include "offsets.hpp"
 #include "config.hpp"
