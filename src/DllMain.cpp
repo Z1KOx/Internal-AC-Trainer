@@ -32,7 +32,14 @@ bool __stdcall DllMain(
 	{
 	case DLL_PROCESS_ATTACH:
 	{
-		hThread = CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)Initilize, hModule, 0, nullptr);
+		hThread = CreateThread(
+			nullptr,
+			0,
+			(LPTHREAD_START_ROUTINE)Initilize,
+			hModule,
+			0,
+			nullptr
+			);
 
 		if (hThread)
 		{
