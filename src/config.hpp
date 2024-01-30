@@ -45,7 +45,7 @@ namespace config
 
 		constexpr bool TeleportEnemies = false;
 
-		constexpr bool Aimbot = true; // ADDING SOON KEYBIND SUPPORT DEFAULT IS CONTROL!
+		constexpr bool Aimbot = true; // Default key 'CTRL'
 	}
 
 	namespace Value
