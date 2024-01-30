@@ -59,12 +59,10 @@ namespace offsets
 	inline constexpr ::std::ptrdiff_t LocalPlayerObject = 0x18AC00;
 	inline constexpr ::std::ptrdiff_t EntityList = 0x18AC04;
 
-	inline constexpr ::std::ptrdiff_t EntityCount = 0x18AC0C;
-	inline constexpr ::std::ptrdiff_t EntityDrawen = 0x19209F;
-
 	// Some random offsets i've reverse engineered recently for fun
 	inline constexpr BYTE IsScoping = 0x66;
 	inline constexpr BYTE IsDead = 0x76;
+<<<<<<< HEAD
 	inline constexpr BYTE CN = 0x1C4;
 	inline constexpr BYTE Team = 0x30C;
 	inline constexpr BYTE Ping = 0x1D0;
@@ -101,6 +99,55 @@ namespace offsets
 	inline constexpr BYTE GameSpeed = 0x191F38;
 	inline constexpr BYTE RightHand = 0x190D34;
 	inline constexpr BYTE ShowPosDbg = 0x18A904;
+=======
+	inline constexpr DWORD CN = 0x1C4;
+	inline constexpr DWORD CurrAmmo = 0x364 + 0x14 + 0x0;
+	inline constexpr DWORD CurrWeapon = 0x364 + 0x4;
+	inline constexpr DWORD Reloading = 0x364 + 0x20;
+	inline constexpr DWORD Team = 0x30C;
+	inline constexpr DWORD Ping = 0x1D0;
+	inline constexpr DWORD Role = 0x200;
+	inline constexpr DWORD Frags = 0x1DC;
+	inline constexpr DWORD Flags = 0x1E0;
+	inline constexpr DWORD Deaths = 0x1E4;
+	inline constexpr DWORD Tks = 0x1E8;
+	inline constexpr DWORD ToggleSpec = 0x318;
+	inline constexpr DWORD WalkForward = 0x82;
+	inline constexpr DWORD WalkLeft = 0x80;
+	inline constexpr DWORD WalkRight = 0x81;
+	inline constexpr DWORD WalkBackward = 0x83;
+	inline constexpr DWORD Crouch = 0x63;
+	inline constexpr DWORD CrosshairSize = 0x18A884;
+	inline constexpr DWORD CrosshairFx = 0x18A88C;
+	inline constexpr DWORD HideRadar = 0x18A894;
+	inline constexpr DWORD HideCompass = 0x18A898;
+	inline constexpr DWORD HideTeam = 0x18A89C;
+	inline constexpr DWORD HideTeamScoreHud = 0x18A8A0;
+	inline constexpr DWORD FlagScoreHudTransparency = 0x18A8A4;
+	inline constexpr DWORD HideEditInfoPanel = 0x18A8A8;
+	inline constexpr DWORD HideVote = 0x18A8AC;
+	inline constexpr DWORD ShowMap = 0x18A8C0;
+	inline constexpr DWORD DamageScreen = 0x18A8F0;
+	inline constexpr DWORD MTExplosion = 0x18AAE4;
+	inline constexpr DWORD BulletBouncesSound = 0x18AAF8;
+	inline constexpr DWORD BulletHole = 0x18AAFC;
+	inline constexpr DWORD BulletHoleEttl = 0x18AB00;
+	inline constexpr DWORD LoadSky = 0x18ABBC;
+	inline constexpr DWORD Gamemode = 0x18ABF8;
+	inline constexpr DWORD Hitsound = 0x18AC38;
+	inline constexpr DWORD AutoReload = 0x190908;
+	inline constexpr DWORD NoSway = 0x1908F4;
+	inline constexpr DWORD FullbrightLevel = 0x19083C;
+	inline constexpr DWORD ShowWeapon = 0x18A86C;
+	inline constexpr DWORD ShowVelocity = 0x18A90C;
+	inline constexpr DWORD BlankOutHud = 0x18A910;
+	inline constexpr DWORD GameSpeed = 0x191F38;
+	inline constexpr DWORD IsJump = 0x195164;
+	inline constexpr DWORD RightHand = 0x190D34;
+	inline constexpr DWORD ShowPosDbg = 0x18A904;
+	inline constexpr DWORD EntityCount = 0x18AC0C;
+	inline constexpr DWORD EntityDrawen = 0x19209F;
+>>>>>>> c91fb79fd8eedace6917ef5740086144397aba4d
 }
 
 #endif

@@ -20,7 +20,11 @@ void Initilize(HINSTANCE hModule)
 	Uninitilize(hModule, f);
 }
 
+<<<<<<< HEAD
 BOOL __stdcall DllMain(
+=======
+bool __stdcall DllMain(
+>>>>>>> c91fb79fd8eedace6917ef5740086144397aba4d
 	HINSTANCE hModule,
 	DWORD ul_reason_for_call,
 	LPVOID lpvReserved
@@ -39,7 +43,11 @@ BOOL __stdcall DllMain(
 			hModule,
 			0,
 			nullptr
+<<<<<<< HEAD
 		);
+=======
+			);
+>>>>>>> c91fb79fd8eedace6917ef5740086144397aba4d
 
 		if (hThread)
 		{
