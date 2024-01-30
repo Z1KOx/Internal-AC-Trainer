@@ -112,12 +112,6 @@ namespace config
 			*(int*)(*localPlayerPtr + offset) = value;
 	}
 
-	void applyBYTE(const uintptr_t* localPlayerPtr, const BYTE offset, const int value, const bool enableFlag)
-	{
-		if (enableFlag)
-			*(BYTE*)(*localPlayerPtr + offset) = value;
-	}
-
 	void applyWeapon(uintptr_t* localPlayerPtr, const std::vector<WORD>& offset, int value, const bool enableFlag)
 	{
 		if (enableFlag)
