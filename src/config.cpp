@@ -8,9 +8,9 @@ namespace config
 {
 	void PrintSettings()
 	{
-		static bool s_bPrintConfig{ true };
+		static bool bPrint{ true };
 
-		if (s_bPrintConfig)
+		if (bPrint)
 		{
 			std::cout << "Keybind END will eject this trainer\n\n\n";
 			if (config::Enable::Health)
@@ -102,7 +102,7 @@ namespace config
 			std::cout << "Teleport Enemies          [ " << std::boolalpha << config::Enable::TeleportEnemies << " ]\n";
 			std::cout << "Aimbot                    [ " << std::boolalpha << config::Enable::Aimbot << ", " << config::Value::aimbotFov << "f, " << config::Value::aimbotSmoothness << "f ]\n";
 
-			s_bPrintConfig = false;
+			bPrint = false;
 		}
 	}
 
