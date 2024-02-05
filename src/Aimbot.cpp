@@ -35,9 +35,6 @@ void Aimbot(uintptr_t moduleBase)
 		if (entityOnScreen == 192)
 			continue;
 
-		if (localTeam == entityTeam)
-			continue;
-
 		if ((localHeadPos - entityHeadPos).hypo3() < distance)
 		{
 			bestEntity = entity;
