@@ -22,8 +22,7 @@ void Initilize(HINSTANCE hModule)
 bool __stdcall DllMain(
 	HINSTANCE hModule,
 	DWORD ul_reason_for_call,
-	LPVOID lpvReserved
-)
+	LPVOID lpvReserved)
 {
 	HANDLE hThread = nullptr;
 
@@ -37,8 +36,7 @@ bool __stdcall DllMain(
 			(LPTHREAD_START_ROUTINE)Initilize,
 			hModule,
 			0,
-			nullptr
-		);
+			nullptr);
 
 		if (hThread)
 		{
